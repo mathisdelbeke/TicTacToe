@@ -17,7 +17,7 @@ static void activate (GtkApplication* app, gpointer user_data)
   button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
   gtk_container_add (GTK_CONTAINER (window), button_box);
 
-  button = gtk_button_new_with_label ("Button");
+  button = gtk_button_new_with_label ("Hello MF's");
   g_signal_connect (button, "clicked", G_CALLBACK (print_to_screen), NULL);
   gtk_container_add (GTK_CONTAINER (button_box), button);
 
