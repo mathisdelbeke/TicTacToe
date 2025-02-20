@@ -1,0 +1,20 @@
+GtkBox {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 10px;
+    background-color: lightgray;  /* Set background color for testing */
+}
+
+GtkGrid {
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 10px;
+    background-color: lightyellow;  /* Set background color for testing */
+}
+
+GtkButton {
+    min-width: 50px;
+    min-height: 50px;
+}
