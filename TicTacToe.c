@@ -17,7 +17,7 @@ int main(int   argc, char *argv[]) {
   gtk_init(&argc, &argv);
 
   builder = gtk_builder_new();
-  if (gtk_builder_add_from_file(builder, "builder.ui", &error) == 0) {
+  if (gtk_builder_add_from_file(builder, "builder.xml", &error) == 0) {
     g_printerr("Error loading file: %s\n", error->message);
     g_clear_error(&error);
     return 1;
