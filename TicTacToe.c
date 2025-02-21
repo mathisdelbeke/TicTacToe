@@ -1,12 +1,10 @@
+#include "TicTacToe.h"
 #include <gtk/gtk.h>
 
 #define SIZE 9
 static int turn = 0;
 static int board[SIZE] = {0}; 
 static GtkWidget *buttons[SIZE];
-
-static void check_winner();
-static void reset_game(GtkWidget *widget, gpointer data);
 
 static void button_clicked(GtkWidget *widget, gpointer data) {
     int button_id = GPOINTER_TO_INT(data);
