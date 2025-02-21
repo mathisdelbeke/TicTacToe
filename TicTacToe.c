@@ -2,7 +2,7 @@
 
 #define SIZE 9
 static int turn = 0;
-static int board[SIZE] = {0}; // 0 = empty, 1 = X, 2 = O
+static int board[SIZE] = {0}; 
 static GtkWidget *buttons[SIZE];
 
 static void check_winner();
