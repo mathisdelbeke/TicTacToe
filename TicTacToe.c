@@ -12,7 +12,7 @@ static void button_clicked(GtkWidget *widget, gpointer data) {
     int button_id = GPOINTER_TO_INT(data);
     if (board[button_id] != 0) return;
 
-    const char *img_path = (turn % 2 == 0) ? "test.png" : "test.png";
+    const char *img_path = (turn % 2 == 0) ? "circle.png" : "cross.png";
     board[button_id] = (turn % 2 == 0) ? 1 : 2;
     
     GtkWidget *image = gtk_image_new_from_file(img_path);

@@ -20,21 +20,32 @@
 
             <!-- Buttons for Tic Tac Toe Grid -->
             <child>
-              <object class="GtkButton" id="button0"/>
+              <object class="GtkButton" id="button0">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">0</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button1"/>
+              <object class="GtkButton" id="button1">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">0</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button2"/>
+              <object class="GtkButton" id="button2">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
@@ -42,21 +53,32 @@
             </child>
 
             <child>
-              <object class="GtkButton" id="button3"/>
+              <object class="GtkButton" id="button3">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">1</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button4"/>
+              <object class="GtkButton" id="button4">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">1</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button5"/>
+              <object class="GtkButton" id="button5">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">2</property>
                 <property name="top-attach">1</property>
@@ -64,21 +86,32 @@
             </child>
 
             <child>
-              <object class="GtkButton" id="button6"/>
+              <object class="GtkButton" id="button6">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">2</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button7"/>
+              <object class="GtkButton" id="button7">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">2</property>
               </packing>
             </child>
+
             <child>
-              <object class="GtkButton" id="button8"/>
+              <object class="GtkButton" id="button8">
+                <property name="width-request">50</property>
+                <property name="height-request">50</property>
+              </object>
               <packing>
                 <property name="left-attach">2</property>
                 <property name="top-attach">2</property>
