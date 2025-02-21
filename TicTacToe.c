@@ -1,53 +1,88 @@
 #include <gtk/gtk.h>
 
+#define SIZE 9
+static int turn = 0;
+static int board[SIZE] = {0}; // 0 = empty, 1 = X, 2 = O
+static GtkWidget *buttons[SIZE];
+
+static void check_winner();
+static void reset_game(GtkWidget *widget, gpointer data);
+
 static void button_clicked(GtkWidget *widget, gpointer data) {
-  int button_id = GPOINTER_TO_INT(data);
-  g_print("Button %d clicked\n", button_id);
-  gtk_widget_set_sensitive(widget, FALSE);
-  gtk_widget_set_opacity(widget, 0.0);
+    int button_id = GPOINTER_TO_INT(data);
+    if (board[button_id] != 0) return;
+
+    const char *img_path = (turn % 2 == 0) ? "test.png" : "test.png";
+    board[button_id] = (turn % 2 == 0) ? 1 : 2;
+    
+    GtkWidget *image = gtk_image_new_from_file(img_path);
+    gtk_button_set_image(GTK_BUTTON(widget), image);
+    gtk_widget_set_sensitive(widget, FALSE);
+    
+    turn++;
+    check_winner();
 }
 
-int main(int   argc, char *argv[]) {
-  GtkBuilder *builder;
-  GtkCssProvider *css_provider;
-  GObject *window;
-  GObject *button;
-  GError *error = NULL;
+static void check_winner() {
+    int wins[8][3] = {
+        {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+        {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+        {0, 4, 8}, {2, 4, 6}
+    };
 
-  gtk_init(&argc, &argv);
+    for (int i = 0; i < 8; i++) {
+        int a = wins[i][0], b = wins[i][1], c = wins[i][2];
+        if (board[a] != 0 && board[a] == board[b] && board[a] == board[c]) {
+            g_print("Player %d wins!\n", board[a]);
+            for (int j = 0; j < SIZE; j++)
+                gtk_widget_set_sensitive(buttons[j], FALSE);
+            return;
+        }
+    }
 
-  builder = gtk_builder_new();
-  if (gtk_builder_add_from_file(builder, "builder.xml", &error) == 0) {
-    g_printerr("Error loading file: %s\n", error->message);
-    g_clear_error(&error);
-    return 1;
-  }
+    if (turn == SIZE) {
+        g_print("It's a draw!\n");
+    }
+}
 
-  window = gtk_builder_get_object(builder, "window");
-  g_signal_connect(window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+static void reset_game(GtkWidget *widget, gpointer data) {
+    turn = 0;
+    for (int i = 0; i < SIZE; i++) {
+        board[i] = 0;
+        gtk_button_set_image(GTK_BUTTON(buttons[i]), NULL);
+        gtk_widget_set_sensitive(buttons[i], TRUE);
+    }
+}
 
-  css_provider = gtk_css_provider_new();
-  gtk_css_provider_load_from_path(css_provider, "style.css", &error);
-  if (error != NULL) {
-    g_printerr("Error loading CSS file: %s\n", error->message);
-    g_clear_error(&error);
-  }
+int main(int argc, char *argv[]) {
+    GtkBuilder *builder;
+    GObject *window, *button_reset;
+    GError *error = NULL;
 
-  gtk_style_context_add_provider_for_screen(
-        gtk_window_get_screen(GTK_WINDOW(window)),
-        GTK_STYLE_PROVIDER(css_provider),
-        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
-  );
+    gtk_init(&argc, &argv);
 
-  for (int i = 0; i < 9; i++) {
-    char button_name[10];
-    snprintf(button_name, sizeof(button_name), "button%d", i); 
-    button = gtk_builder_get_object(builder, button_name);
-    g_signal_connect(button, "clicked", G_CALLBACK(button_clicked), GINT_TO_POINTER(i));
-  }
+    builder = gtk_builder_new();
+    if (!gtk_builder_add_from_file(builder, "builder.xml", &error)) {
+        g_printerr("Error loading file: %s\n", error->message);
+        g_clear_error(&error);
+        return 1;
+    }
 
-  gtk_widget_show_all(GTK_WIDGET(window));
-  gtk_main();
+    window = gtk_builder_get_object(builder, "window");
+    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
-  return 0;
+    for (int i = 0; i < SIZE; i++) {
+        char button_name[10];
+        snprintf(button_name, sizeof(button_name), "button%d", i);
+        buttons[i] = GTK_WIDGET(gtk_builder_get_object(builder, button_name));
+        g_signal_connect(buttons[i], "clicked", G_CALLBACK(button_clicked), GINT_TO_POINTER(i));
+    }
+
+    button_reset = gtk_builder_get_object(builder, "button_reset");
+    g_signal_connect(button_reset, "clicked", G_CALLBACK(reset_game), NULL);
+
+    gtk_widget_show_all(GTK_WIDGET(window));
+    gtk_main();
+
+    return 0;
 }
